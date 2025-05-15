@@ -2,15 +2,31 @@
 
 This is an app for learning about edge computing with Fastly!
 
-Try the app out by opening it in a codespace: 
+In this project you'll learn how to enhance the behavior of a website at the network edge using logic written in JavaScript. You can test the functionality locally in the codespace without installing any local tooling, then grab a Fastly API key when you're ready to deploy.
 
-* Create a fork of this repo
-* Click **Code** > **Codespaces**
-* Create a codespace on the current branch
+## In this doc
 
-Your codespace will perform a few setup tasks including automatically running your new Compute app on a local server – _it might take a couple of minutes to start up._
+* [Remix your own app](#remix-your-own-app)
+* [Get to know your app](#get-to-know-your-app)
+  * [Make a change](#make-a-change)
+  * [Share your draft app](#share-your-draft-app)
+* [Deploy your app to Fastly Compute](#deploy-your-app-to-fastly-compute)
+* [Save your edits to GitHub](#save-your-edits-to-github)
+* [How this project works](#how-this-project-works)
+  * [Extensions](#extensions)
+* [Keep going! 🚀](#keep-going-)
 
-## Get to know the app
+## Remix your own app
+
+**Fork** [this repository](https://github.com/glitchdotcom/hello-compute/) to create your own copy of the app.
+
+In your fork, open the site in a codespace by clicking **Code** > **Codespaces** and creating a new codespace on your main branch. 
+
+<img alt="Create codespace" src="https://github.com/user-attachments/assets/cb29a8da-d1ac-42f5-962c-7d43b8011324" width="400px"/><br/>
+
+Give the codespace a minute or two to start up – it'll automatically build and preview your new app! 
+
+## Get to know your app
 
 This starter kit changes the behavior of a website at the edge. Check out the <a href="https://glitchdotcom.github.io/compute-origin" target="_blank">origin version of the site</a>.
 
@@ -19,9 +35,14 @@ In your codespace preview:
 * Try opening a page that doesn't exist: `/ohno`
 * Now try a page that the origin returns as JSON: `/data.json`
 
-> 💡 **TIP**: Split the editor into two panes and drag the preview into the second one to see your code and the website at the same time.
+![app in codespace](https://github.com/user-attachments/assets/83a3760e-1d50-444c-a501-086ad3f03bc2)
 
-![Project in a codespace](https://github.com/user-attachments/assets/e117a513-bce6-44d4-aeb1-285e79d3ef92)
+* When your website preview opens, click the **🔎 Split** button at the bottom so that you can see the site side by side with your code.
+* _You can close [x] the **Terminal** while you work._
+
+You can view the origin version of the site in the codespace too by opening the **💻 Terminal**, selecting **Ports** and clicking the little preview button next to the `Origin` listing:
+
+![origin site open](https://github.com/user-attachments/assets/cc768d28-458f-4ab8-b772-f88d7db51603)
 
 Explore the code:
 
@@ -36,11 +57,21 @@ The functionality:
 * If the request is for a `json` file, we send the data back in a synthetic HTML page
 * We send synthetic pages back for any 404 or 500 errors
 
-## Make a change
+### Make a change
 
 Make a change to the `index.js` code, like changing the content in the synthetic HTML page! The Fastly CLI will automatically rebuild and run the app – you'll see the effects in the preview.
 
-## Deploy to Fastly
+### Share your draft app 
+
+You can share links to your draft app with collaborators – click **🔗 Share** at the bottom of the editor. The terminal output will include a link you can right-click and copy to share with anyone you like! 
+
+> This project includes a handy shortcut button for grabbing your preview URL but it might be a wee bit error prone 😅 you can also access these details in **💻 Terminal** > **PORTS**.
+>
+> Change `private` to `public` by right-clicking your running port and choosing from the options.
+>
+> Copy the URL to your clipboard and share it 📋.
+
+## Deploy your app to Fastly Compute
 
 When you're ready to deploy your app to the Fastly network, you'll need an API key and one command entered into the Terminal:
 
@@ -52,33 +83,64 @@ When you're ready to deploy your app to the Fastly network, you'll need an API k
   * _Access_: All services
   * _Expiration_: Never expire
 * Copy the value of your new token
+- **Copy the token value into GitHub**
+  - Back in your codespace, click into the textfield at the top of the editor and type `>` to access the command palette
+  - Type `secret` and select **Codespaces: Manage user secrets**
+    - <img alt="Secret command" src="https://github.com/user-attachments/assets/a6cfeac8-2aca-40a4-ab41-d207733b61cc" width="300px"/>
+  - Click **+ Add a new secret**
+    - <img alt="Add new secret" src="https://github.com/user-attachments/assets/350e545c-0073-4327-ac99-3663049e7aad" width="400px"/>
+  - Enter the name `FASTLY_API_TOKEN`
+    - <img alt="Fastly token" src="https://github.com/user-attachments/assets/536d1b2a-bf62-4085-aac4-ade7d2898583" width="400px"/>
+  - Paste your token value and enter
 
-In your GitHub fork of this repo, in **Settings** open **Secrets and variables** > **Codespaaces**
+In the noticiations area at the bottom right of your codespace, you should see a prompt to **reload** for the new environment variable, so go ahead and click that (otherwise click the little bell 🔔 icon to check for the message).
 
-* Create a **new repository secret**
-* Name the secret `FASTLY_API_TOKEN`
-* Enter the token value you copied from your Fastly account
-* Back in your codespace hopefully you see a prompt to update for your new repository secret
+Hit the **🚀 Publish** button at the bottom of the editor, enter `y` and watch the **Terminal** output for your new site address! It might take a couple of minutes... 🥁
 
-![Repository token](https://github.com/user-attachments/assets/fdb07f12-2b2c-4b98-9450-45e5ab02c412)
+![App address in the terminal](https://github.com/user-attachments/assets/96cd1ce2-1833-4471-a726-69f4d948a55b)
 
-In the **Terminal** exit the local server with `CTRL+C`
-
-* Enter `npx @fastly/cli compute publish`
-  * Include `--auto-yes` and/or `--accept-defaults` if you just want to use the default options instead of responding to each prompt
-
-The Terminal will output the address of your new app, it will end `edgecompute.app` – open it in the browser!
-
-![Link in terminal](https://github.com/user-attachments/assets/d6ecde78-26d7-449b-bfa0-e3166a0ae9d7)
+You'll see your new `*.edgecompute.app` address in the output. Open it in a new tab and tell everyone you know about your new site. 📣
 
 How does your site behave differently on the edge?
 
-![Site deployed to the edge](https://github.com/user-attachments/assets/6ab9fe0b-1538-4cff-8a85-985018e8e97d)
+![Deployed app on Fastly](https://github.com/user-attachments/assets/1fdbfc5b-50dd-4f0b-9389-21d2a79d804e)
 
-## Keep going!
+🎢 Whenever you update your app, hit the **🚀 Publish** button again to go live!
+
+## Save your edits to GitHub
+
+GitHub will keep the edits you make in the codespace only for a limited time, so it's a good idea to commit your work to a repo regularly. Use the **Source Control** button on the left of the editor – you can make commits, open and merge pull requests right inside the codespace. 
+
+> GitHub will notify you if any of your codespaces are about to expire. If you have changes you want to keep, you can use the **Export changes to a branch** option.
+> 
+> <img alt="export to branch" width="500px" src="https://github.com/user-attachments/assets/c7815347-3e5a-4e34-97f2-db58343acaa4"/>
+
+## How this project works 
+
+⚙️ The settings we use to create the guided experience in the codespace are in the `.devcontainer/` folder.
+
+🧰 You'll find the Fastly CLI commands we use under the hood in the `helpers/publish.sh` script.
+
+💻 If you check the right-hand side of the **Terminal** you'll find multiple processes – this is to run the commands.
+
+### Extensions
+
+This project uses the following extensions from the dev community! 🙌
+
+* [VSCode Action Buttons Ext](https://marketplace.visualstudio.com/items?itemName=jkearins.action-buttons-ext)
+* [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+
+## Keep going! 🛸
+
+**Don't stop there, <a href="https://www.fastly.com/documentation/solutions/tutorials/deliver-your-site/#sending-domain-traffic-to-fastly" target="_blank">add a domain to your new site</a>.**
+
+You'll find your service in your Fastly account control panel – check out the **Observability** stats! 📊
 
 What else can you build on Compute? Check out the [code examples](https://www.fastly.com/documentation/solutions/examples/) for inspiration.
 
 You can also [clone the example website](https://github.com/glitchdotcom/compute-origin) and deploy it to GitHub Pages if you like by following the instructions in its README (make sure you update the `toml` and `index.js` `root` values in your clone of the Compute app).
 
-**Get help on the [Fastly community forum](https://community.fastly.com)**
+🛟 Get help on the <a href="https://community.fastly.com" target="_blank">community forum</a>.
+
+<img src="https://github.com/user-attachments/assets/17a8af4a-100f-416d-a1cf-f84174262138" width="100px"/>
+
