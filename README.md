@@ -6,7 +6,7 @@ In this project you'll learn how to enhance the behavior of a website at the net
 
 ## In this doc
 
-* [Remix your own app](#remix-your-own-app)
+* [Fork your own app](#fork-your-own-app)
 * [Get to know your app](#get-to-know-your-app)
   * [Make a change](#make-a-change)
   * [Share your draft app](#share-your-draft-app)
@@ -16,7 +16,7 @@ In this project you'll learn how to enhance the behavior of a website at the net
   * [Extensions](#extensions)
 * [Keep going! 🚀](#keep-going-)
 
-## Remix your own app
+## Fork your own app
 
 **Fork** [this repository](https://github.com/glitchdotcom/hello-compute/) to create your own copy of the app.
 
@@ -35,7 +35,7 @@ In your codespace preview:
 * Try opening a page that doesn't exist: `/ohno`
 * Now try a page that the origin returns as JSON: `/data.json`
 
-![app in codespace](https://github.com/user-attachments/assets/83a3760e-1d50-444c-a501-086ad3f03bc2)
+![app in codespace](https://github.com/user-attachments/assets/77d9c974-edaa-4053-88fd-84c36707607e)
 
 * When your website preview opens, click the **🔎 Split** button at the bottom so that you can see the site side by side with your code.
 * _You can close [x] the **Terminal** while you work._
@@ -103,7 +103,7 @@ You'll see your new `*.edgecompute.app` address in the output. Open it in a new 
 
 How does your site behave differently on the edge?
 
-![Deployed app on Fastly](https://github.com/user-attachments/assets/1fdbfc5b-50dd-4f0b-9389-21d2a79d804e)
+<img src="https://github.com/user-attachments/assets/70355c6e-774a-4744-951b-1e30bd71486c" width="600px" alt="deployed app"/>
 
 🎢 Whenever you update your app, hit the **🚀 Publish** button again to go live!
 
