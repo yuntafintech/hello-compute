@@ -26,6 +26,8 @@ async function handleRequest(_event) {
     */
     let geo = getGeolocationForIpAddress(ip);
 
+    // 🚧 🚧 🚧 Add the code from the README on the next line 🚧 🚧 🚧
+
     // Where is the user
     where =
       geo.city.charAt(0).toUpperCase() +
