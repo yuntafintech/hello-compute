@@ -3,7 +3,7 @@
  */
 
 import { getGeolocationForIpAddress } from "fastly:geolocation";
-let where = "?", greeting = "Hello!";
+let where = "?", greeting = "Hello! ";
 let root = "/compute-origin/"; //change the root if your site is at a different path 
 
 // We use a function to handle requests to the origin
