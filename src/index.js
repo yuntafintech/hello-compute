@@ -35,8 +35,6 @@ async function handleRequest(_event) {
 
     // Set the stylesheet
     let style = root+"/edge.css";
-    
-    // 🚧 🚧 🚧 Add the code from Step 4 in the README on the next line 🚧 🚧 🚧
 
     url.pathname = url.pathname.replace("/", root);
     if (url.pathname.indexOf(".css") >= 0) url.pathname = style;
