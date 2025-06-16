@@ -78,8 +78,7 @@ async function handleRequest(_event) {
   // Tell the user about how this response was delivered with a cookie
   backendResponse.headers.set(
     "Set-Cookie",
-    "location=Fastly responded to a request from " +
-      where +
+    "location="+ greeting + "Fastly responded to a request from " + where +
       "; SameSite=None; Secure"
   );
 
