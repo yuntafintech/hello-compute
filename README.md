@@ -59,7 +59,28 @@ The functionality:
 
 ### Make a change
 
-Make a change to the `index.js` code, like changing the content in the synthetic HTML page! The Fastly CLI will automatically rebuild and run the app – you'll see the effects in the preview.
+Make a change to the `index.js` code!
+
+Find the line where the code sets the value of the `geo` variable using `getGeolocationForIpAddress` and add the following on the next line:
+
+```js
+// Let's get the time of day and find out how far from UTC it is
+let displayTime = new Date().getHours();
+let offset = geo.utc_offset;
+displayTime += offset / 100;
+
+// Tailor the greeting to the user time of day
+greeting =
+  displayTime > 4 && displayTime < 12
+    ? "Morning! "
+    : displayTime >= 12 && displayTime < 18
+    ? "Afternoon! "
+    : "Evening! ";
+```
+
+The code changes the greeting to reflect the time of day at the user location.
+
+The Fastly CLI will automatically rebuild and run the app – you'll see the effects in the preview.
 
 ### Share your draft app 
 
