@@ -44,6 +44,8 @@ You can view the origin version of the site in the codespace too by opening the 
 
 ![origin site open](https://github.com/user-attachments/assets/cc768d28-458f-4ab8-b772-f88d7db51603)
 
+> ⚠️ _If you're using your own origin website and want to view it in the codespace, change the code in `origin/index.html` to point the `iframe` `src` attribute to your site._
+
 Explore the code:
 
 * Your `fastly.toml` file includes the service config
