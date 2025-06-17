@@ -23,8 +23,8 @@
     "vinstall": "cd origin && npm install"
   },
   "postAttachCommand": {
-    "origin": "cd origin && npm run build && npm run preview",
-    "build": "npm run start"
+    "build": "npm run start",
+    "origin": "cd origin && npm run build && npm run preview"
   },
   "waitFor": "updateContentCommand",
   "customizations": {
