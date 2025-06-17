@@ -26,6 +26,8 @@ In your fork, open the site in a codespace by clicking **Code** > **Codespaces**
 
 Give the codespace a minute or two to start up – it'll automatically build and preview your new app! 
 
+> 🌎 🤔 Note that the geolocation information will be based on your request from inside the Codespace container (so it'll likely indicate that your request is coming from the US even if you're somewhere else). When you publish to Fastly and view your `edgecompute.app` address, you should see more relevant location info.
+
 ## Get to know your app
 
 This starter kit changes the behavior of a website at the edge. Check out the <a href="https://glitchdotcom.github.io/compute-origin" target="_blank">origin version of the site</a>.
