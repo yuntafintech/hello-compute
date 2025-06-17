@@ -19,8 +19,8 @@
     }
   },
   "updateContentCommand": {
-    "vinstall": "cd origin && npm install",
-    "cinstall": "npm install"
+    "cinstall": "npm install",
+    "vinstall": "cd origin && npm install"
   },
   "postAttachCommand": {
     "origin": "cd origin && npm run build && npm run preview",
