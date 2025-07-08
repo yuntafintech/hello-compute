@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>R2 Sandbox App</title>
+    <script src="https://assets.r2capital.co/ole/r2-ole.js"></script>
+  </head>
+  <body>
+    <h1>Préstamos R2 (sandbox)</h1>
+    <div id="r2-ole-root"></div>
+
+    <script>
+      const r2Lending = new R2Ole(document.getElementById('r2-ole-root'), {
+        auth: 'AQUI_VA_TU_JWT_SANDBOX TECNICO - AMBIENTE DE PRUEBAS YUNTAFINTECH - APOYANDO A LAS MUJERES EN SUS FINANZAS',
+        mode: 'light'
+      });
+      r2Lending.Ready()
+        .then(() => console.log('Componente cargado'))
+        .catch(err => console.error('Error al cargar R2:', err));
+    </script>
+  </body>
+</html>
