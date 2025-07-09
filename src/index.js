@@ -1,108 +1,46 @@
-/**
- * This code runs on the Fastly Compute platform 🚀 
- */
+const express = require('express');
+const axios = require('axios');
+const app = express();
 
-import { getGeolocationForIpAddress } from "fastly:geolocation";
-let where = "?", greeting = "Hello! ";
-let root = "/compute-origin/"; //change the root if your site is at a different path 
+app.use(express.json());
 
-// We use a function to handle requests to the origin
-addEventListener("fetch", (event) => event.respondWith(handleRequest(event)));
+// Tu API Key de WasenderAPI (pon aquí la tuya)
+const WASENDER_API_KEY = 'TU_API_KEY_AQUI';
 
-async function handleRequest(_event) {
-  //The request the user made
-  let req = _event.request;
-  let url = new URL(req.url);
-
-  //Find out the user location info
+// Endpoint para recibir mensajes entrantes desde WasenderAPI webhook
+app.post('/webhook', async (req, res) => {
   try {
-    let ip =
-      new URL(_event.request.url).searchParams.get("ip") ||
-      _event.client.address;
+    const message = req.body; // Estructura que envía WasenderAPI
 
-    /* 
-    Info you can get from geo
-    https://js-compute-reference-docs.edgecompute.app/docs/fastly:geolocation/getGeolocationForIpAddress
-    */
-    let geo = getGeolocationForIpAddress(ip);
+    console.log('Mensaje recibido:', message);
 
-    // 🚧 🚧 🚧 Add the code from the README on the next line 🚧 🚧 🚧
+    // Ejemplo: responde solo si es mensaje de texto
+    if (message.type === 'text') {
+      const from = message.from;  // Número de la usuaria
+      const text = message.body;  // Texto recibido
 
-    // Where is the user
-    where =
-      geo.city.charAt(0).toUpperCase() +
-      geo.city.slice(1).toLowerCase() +
-      " " +
-      geo.country_code;
+      // Construye la respuesta
+      const replyText = `Recibí tu mensaje: "${text}". Gracias por contactarnos!`;
 
-    // Set the stylesheet
-    let style = root+"/edge.css";
+      // Envía respuesta por WasenderAPI
+      await axios.post('https://api.wasenderapi.com/sendText', {
+        apiKey: WASENDER_API_KEY,
+        phone: from,
+        message: replyText
+      });
 
-    url.pathname = url.pathname.replace("/", root);
-    if (url.pathname.indexOf(".css") >= 0) url.pathname = style;
-    
-    // Build a new request
-    req = new Request(url, req);
+      console.log('Mensaje de respuesta enviado');
+    }
+
+    res.status(200).send('OK');
   } catch (error) {
-    console.error(error);
-    return new Response(getSynthPage("😭 500 😭", "Uh oh something went wrong on the server"), {
-      status: 500,
-      headers: {
-        "Content-Type": "text/html",
-      },
-    });
+    console.error('Error en webhook:', error);
+    res.status(500).send('Error');
   }
+});
 
-  //Get the origin response
-  let backendResponse = await fetch(req, {
-    backend: "website",
-  });
-
-  if(url.pathname.indexOf(".json") >= 0) {
-    let data = await backendResponse.json();
-    let content = `<strong>${data.information}</strong>`;
-    return new Response(getSynthPage("📊 DATA 📊", content), {
-      status: 200,
-      headers: {
-        "Content-Type": "text/html",
-      },
-    });
-  }
-  if(backendResponse.status==404){
-    return new Response(getSynthPage("⚠️ 404 ⚠️", "Uh oh the page you requested wasn't found"), {
-      status: 404,
-      headers: {
-        "Content-Type": "text/html",
-      },
-    });
-  }
-
-  // Tell the user about how this response was delivered with a cookie
-  backendResponse.headers.set(
-    "Set-Cookie",
-    "location="+ greeting + "Fastly responded to a request from " + where +
-      "; SameSite=None; Secure"
-  );
-
-  return backendResponse;
-}
-
-// The synthetic page is tailored to the Glitch origin so tweak to suit your site!
-function getSynthPage(heading, message) {
-  // The default Glitch origin has a stylesheet called "style.css"
-  return `
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>${heading}</title>
-    <link rel="stylesheet" href="style.css"/>
-  </head>
-  <body>
-    <h1>${heading}</h1>
-    <p>${message}</p>
-    <p>Go to <a href="/">the homepage</a></p>
-  </body>
-</html>`;
-}
+// Inicia servidor
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Servidor escuchando en puerto ${PORT}`);
+});
